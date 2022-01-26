@@ -1,14 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 // const config = require('./config/database');
-const morgan = require('morgan');
 // const session = require('express-session');
 const path = require('path');
 
 // Routes
 const momoRoute = require('./routes/momo');
 // const userRoutes = require('./api/routes/user.route');
-
+if(process.env.NODE_ENV != 'production'){
+const morgan = require('morgan');
+app.use(morgan('dev'))
+}
 // Connection to mongodb
 // mongoose.connect(config.database, { useNewUrlParser: true, useUnifiedTopology: true ,useCreateIndex : true, useFindAndModify: false});
 // mongoose.Promise = global.Promise
@@ -30,7 +32,7 @@ app.use(express.json())
 //     saveUninitialized: true
 // }))
 
-app.use(morgan('dev'))
+
 app.use('/uploads', express.static('uploads'))
 // app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
